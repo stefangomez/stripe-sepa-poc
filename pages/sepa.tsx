@@ -16,10 +16,6 @@ const SepaPage = () => (
     </Center>
 
     <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
   </Container>
 );
 
