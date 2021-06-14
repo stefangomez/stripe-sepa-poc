@@ -1,0 +1,24 @@
+# import Partial from './partial.graphql'
+
+query Viewer {
+  viewer {
+    ...Partial
+    status
+  }
+}
+
+mutation UpdateName($name: String!) {
+  updateName(name: $name) {
+    id
+    name
+    status
+  }
+}
+
+mutation SetupPaymentIntent($name: String!, $email: String!) {
+  setupPaymentIntent(name: $name, email: $email) {
+    success
+    error
+    clientSecret
+  }
+}

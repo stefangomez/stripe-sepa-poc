@@ -1,0 +1,14 @@
+type Query {
+  viewer: User!
+}
+
+type Mutation {
+  updateName(name: String!): User!
+  setupPaymentIntent(name: String!, email: String!): SetupPaymentIntentResponse!
+}
+
+type SetupPaymentIntentResponse {
+  success: Boolean!
+  error: String
+  clientSecret: String
+}
