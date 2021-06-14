@@ -124,9 +124,9 @@ const SepaDebitForm = () => {
 
   const theme = useTheme();
   const inputStyles = useStyleConfig('Input', { variant: 'filled', fontSize: 20 });
-  const inputStylesResolved = css(inputStyles.field)(theme);
-  console.log('inputStyles', inputStyles);
-  console.log('inputStylesResolved', inputStylesResolved);
+  // const inputStylesResolved = css(inputStyles.field)(theme);
+  // console.log('inputStyles', inputStyles);
+  // console.log('inputStylesResolved', inputStylesResolved);
 
   return (
     <VStack>
