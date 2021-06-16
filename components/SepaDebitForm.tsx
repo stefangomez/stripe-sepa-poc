@@ -1,27 +1,21 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { IbanElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import StatusMessages, { useMessages } from './StatusMessages';
-import { useSetupPaymentIntentMutation } from 'lib/viewer.graphql';
 import {
-  Heading,
-  VStack,
-  Code,
   Button,
+  Code,
   FormControl,
-  FormHelperText,
   FormLabel,
+  Heading,
   HStack,
   Input,
-  Stack,
-  useStyleConfig,
-  useTheme,
-  css,
-  Text,
   Spinner,
+  Stack,
+  Text,
+  VStack,
 } from '@chakra-ui/react';
-import { StripeElementStyleVariant, StripeIbanElementChangeEvent } from '@stripe/stripe-js';
-
-// const toCSSString = (styles, theme) => serializeStyles([css(styles)(theme)]).styles;
+import { IbanElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { StripeIbanElementChangeEvent } from '@stripe/stripe-js';
+import { useSetupPaymentIntentMutation } from 'lib/viewer.graphql';
+import React, { useCallback, useEffect, useState } from 'react';
+import StatusMessages, { useMessages } from './StatusMessages';
 
 const SepaDebitForm = () => {
   const stripe = useStripe();
@@ -60,18 +54,6 @@ const SepaDebitForm = () => {
 
     addMessage('Client secret returned');
 
-    // const { error: stripeError, paymentIntent } = await stripe.confirmSepaDebitPayment(
-    //   clientSecret,
-    //   {
-    //     payment_method: {
-    //       sepa_debit: elements.getElement(IbanElement),
-    //       billing_details: {
-    //         name,
-    //         email,
-    //       },
-    //     },
-    //   }
-    // );
     const { error: stripeError, setupIntent } = await stripe.confirmSepaDebitSetup(clientSecret, {
       payment_method: {
         sepa_debit: elements.getElement(IbanElement),
@@ -106,51 +88,6 @@ const SepaDebitForm = () => {
     }
   };
 
-  // &:focus, &[data-focus]: {background: "var(--chakra-colors-transparent)", borderColor: "#3182ce"}
-  // &:hover, &[data-hover]: {background: "var(--chakra-colors-gray-200)"}
-  // &[aria-invalid=true], &[data-invalid]: {borderColor: "#E53E3E"}
-  // &[aria-readonly=true], &[readonly], &[data-readonly]: {boxShadow: "none !important", userSelect: "all"}
-  // &[disabled], &[aria-disabled=true], &[data-disabled]: {opacity: 0.4, cursor: "not-allowed"}
-  // appearance: "none"
-  // background: "var(--chakra-colors-gray-100)"
-  // border: "2px solid"
-  // borderColor: "var(--chakra-colors-transparent)"
-  // borderRadius: "var(--chakra-radii-md)"
-  // fontSize: "var(--chakra-fontSizes-md)"
-  // height: "var(--chakra-sizes-10)"
-  // minWidth: "0px"
-  // outline: "2px solid transparent"
-  // outlineOffset: "2px"
-  // paddingInlineEnd: "var(--chakra-space-4)"
-  // paddingInlineStart: "var(--chakra-space-4)"
-  // position: "relative"
-  // transition: "all 0.2s"
-  // width: "100%"
-
-  //   ':hover'?: StripeElementCSSProperties;
-  //   ':focus'?: StripeElementCSSProperties;
-  //   '::placeholder'?: StripeElementCSSProperties;
-  //   '::selection'?: StripeElementCSSProperties;
-  //   ':-webkit-autofill'?: StripeElementCSSProperties;
-  //   ':disabled'?: StripeElementCSSProperties;
-  //   '::-ms-clear'?: StripeElementCSSProperties & {display: string};
-  //   backgroundColor?: string;
-  //   color?: string;
-  //   fontFamily?: string;
-  //   fontSize?: string;
-  //   fontSmoothing?: string;
-  //   fontStyle?: string;
-  //   fontVariant?: string;
-  //   fontWeight?: string | number;
-  //   iconColor?: string;
-  //   lineHeight?: string;
-  //   letterSpacing?: string;
-  //   textAlign?: string;
-  //   padding?: string;
-  //   textDecoration?: string;
-  //   textShadow?: string;
-  //   textTransform?: string;
-
   const inputStyles = {
     color: '#16161D',
     fontFamily:
@@ -165,29 +102,6 @@ const SepaDebitForm = () => {
     },
   };
 
-  // const theme = useTheme();
-  // const inputStyles = useStyleConfig('Input', { variant: 'filled', fontSize: 20 });
-  // const inputStylesResolved = css(inputStyles.field)(theme);
-  // console.log('theme', theme);
-  // console.log('theme.__cssVars', theme.__cssVars);
-  // console.log('inputStyles', inputStyles);
-  // console.log('inputStylesResolved', inputStylesResolved);
-  // const inputStylesWithVars = { ...theme.__cssVars, ...inputStylesResolved };
-
-  // console.log('inputStylesWithVars', inputStylesWithVars);
-
-  // const inputRef1 = useRef();
-  // const inputStyles1 = useMemo(
-  //   () => (inputRef1.current ? getComputedStyle(inputRef1.current) : {}),
-  //   [inputRef1.current]
-  // );
-  // console.log('inputStyles1', inputStyles1);
-  // const inputStyles2: StripeElementStyleVariant = {};
-  // useEffect(() => {
-  //   console.log('inputRef1.current', inputRef1.current);
-  //   const inputStyles1 = getComputedStyle(inputRef1.current);
-  //   console.log('inputStyles1', inputStyles1);
-  // }, [inputRef1]);
   const handleIbanChange = useCallback((e: StripeIbanElementChangeEvent) => {
     console.log('ibanChangeEvent: e', e);
     setIsIbanValid(e.complete);
@@ -282,7 +196,6 @@ const SepaDebitForm = () => {
                   style: { base: inputStyles, invalid: { color: '#16161D' } },
                 }}
                 onChange={handleIbanChange}
-                // options={{ supportedCountries: ['SEPA'], style: { base: inputStylesWithVars } }}
               />
             </Stack>
 
@@ -297,18 +210,6 @@ const SepaDebitForm = () => {
               obtain from your bank. You agree to receive notifications for future debits up to 2
               days before they occur.
             </Text>
-            {/* <Text fontSize='xs'>
-          By providing your bank account details and confirming this payment, you agree to this
-          Direct Debit Request and the{' '}
-          <a href='https://stripe.com/au-becs-dd-service-agreement/legal'>
-            Direct Debit Request service agreement
-          </a>
-          , and authorise Stripe Payments Australia Pty Ltd ACN 160 180 343 Direct Debit User ID
-          number 507156 (“Stripe”) to debit your account through the Bulk Electronic Clearing System
-          (BECS) on behalf of <strong>Business Name</strong> (the "Merchant") for any amounts
-          separately communicated to you by the Merchant. You certify that you are either an account
-          holder or an authorised signatory on the account listed above.
-        </Text> */}
 
             <Button
               disabled={!isFormValid}
@@ -321,7 +222,6 @@ const SepaDebitForm = () => {
           </VStack>
 
           <StatusMessages messages={messages} />
-          <div id='error-message' role='alert'></div>
         </>
       )}
     </VStack>

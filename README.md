@@ -1,21 +1,38 @@
-# TypeScript, GraphQL, Next.js + Chakra UI boilerplate.
+# Stripe SEPA payments POC
 
-One of the strengths of GraphQL is [enforcing data types on runtime](https://graphql.github.io/graphql-spec/June2018/#sec-Value-Completion). Further, TypeScript and [GraphQL Code Generator](https://graphql-code-generator.com/) (graphql-codegen) make it safer by typing data statically, so you can write truly type-protected code with rich IDE assists.
+This POC is based off of a boilerplate that is unpublished as of now. That boilerplate is heavily based on https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui-typescript and https://github.com/vercel/next.js/tree/canary/examples/with-typescript-graphql where some basic docs can be found on how to use the internals of this POC
 
-This template extends [Apollo Server and Client Example](https://github.com/vercel/next.js/tree/canary/examples/api-routes-apollo-server-and-client#readme) by rewriting in TypeScript and integrating [graphql-let](https://github.com/piglovesyou/graphql-let#readme), which runs [TypeScript React Apollo](https://graphql-code-generator.com/docs/plugins/typescript-react-apollo) in [graphql-codegen](https://github.com/dotansimha/graphql-code-generator#readme) under the hood. It enhances the typed GraphQL use as below:
+## Live working example
 
-```tsx
-import { useNewsQuery } from './news.graphql'
+https://clever-mcnulty-2e3118.netlify.app/
 
-const News = () => {
-	// Typed already️⚡️
-	const { data: { news } } = useNewsQuery()
+## Running Locally
 
-	return <div>{news.map(...)}</div>
-}
+1. Clone repo
+
+```bash
+git clone git@github.com:stefangomez/stripe-sepa-poc.git
 ```
 
-By default `**/*.graphqls` is recognized as GraphQL schema and `**/*.graphql` as GraphQL documents. If you prefer the other extensions, make sure the settings of the webpack loader in `next.config.js` and `.graphql-let.yml` are consistent.
+2. Install dependencies
+
+```bash
+cd stripe-sepa-poc
+yarn install
+```
+
+2. Create Environment file, fill with Stripe keys
+
+```bash
+cp .env.example .env
+# edit .env and fill in stripe test keys
+```
+
+3. Run dev app
+
+```bash
+yarn dev
+```
 
 ## Deploy to netlify
 

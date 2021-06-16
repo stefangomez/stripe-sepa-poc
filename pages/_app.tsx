@@ -9,9 +9,7 @@ import theme from '../theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState);
-  const stripePromise = loadStripe(
-    'pk_test_51GtFaoH5vJQeh1svEizSPnzb2njQyOmwJSr1pYQJxNgLbrGnLdcabHqvRXGFgsAHUq6pF07cKBU3IqBDR66wvM1m00nF9phkZx'
-  );
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
   return (
     <Elements stripe={stripePromise}>
