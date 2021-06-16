@@ -37,3 +37,5 @@ yarn dev
 ## Deploy to netlify
 
 Deploys are working via netlify, but not vercel. Vercel's config for nextjs for including additional necessary files (lib/\*.graphqls) for the lambda function doesn't work. Netlify's does, see netlify.toml. Additional config info here: https://docs.netlify.com/configure-builds/common-configurations/next-js/
+
+- make sure to create env variables in Netlify (or wherever you deploy) that replicate your .env file
